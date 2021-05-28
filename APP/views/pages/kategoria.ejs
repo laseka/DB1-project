@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Kategorie, do których mogą być przydzielone produkty</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania opinii</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/kategoria" method="POST">
+
+                <label for="nazwa">Nazwa kategorii</label>
+                <input type="text" class="form-control w-50" id="nazwa" name="nazwa" aria-describedby="nazwaHelp" placeholder="Wprowadź nazwę nowej kategorii" required>
+            
+                <label for="opis">Opis kategorii</label>
+                <input type="text" class="form-control w-50" id="opis" name="opis" aria-describedby="opisHelp" placeholder="Wprowadź opis nowej kategorii" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj kategorię</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(kategoria) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_kategoria</th>
+                            <th>Nazwa kategorii</th>
+                            <th>Krótki opis kategorii</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < kategoria.length; i++) {%>
+                        <tr>
+                            <td><%= kategoria[i].id_kategoria %></td>
+                            <td><%= kategoria[i].nazwa_kategoria %></td>
+                            <td><%= kategoria[i].opis_kategoria %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+            <%} else {%>
+            </br>
+            <form action="/kategoria" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

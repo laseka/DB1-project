@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Tabela asocjacyjna, która odpowiada przyporządkowaniu zamówień do odpowiednich produktów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Dodaj produkty do zamówienia</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/zamowienie_produkt" method="POST">
+
+                <label for="zamowienieId">ID zamówienia</label>
+                <input type="text" class="form-control w-50" id="zamowienieId" name="zamowienieId" aria-describedby="zamowienieIdHelp" placeholder="Wprowadź ID zamówienia" required>
+            
+                <label for="produktId">ID produktu</label>
+                <input type="text" class="form-control w-50" id="produktId" name="produktId" aria-describedby="produktIdHelp" placeholder="Wprowadź ID produktu" required>
+
+                <label for="liczba">Liczba sztuk zamawianego produktu</label>
+                <input type="text" class="form-control w-50" id="liczba" name="liczba" aria-describedby="liczbaHelp" placeholder="Ile sztuk produktu chcesz zamówić" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj przyporządkowanie</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(zamowienie_produkt) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_zamowienia</th>
+                            <th>id_produkt</th>
+                            <th>Liczba zamówionych produktów</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < zamowienie_produkt.length; i++) {%>
+                        <tr>
+                            <td><%= zamowienie_produkt[i].id_zamowienie %></td>
+                            <td><%= zamowienie_produkt[i].id_produkt %></td>
+                            <td><%= zamowienie_produkt[i].liczba_produktow %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        <%} else {%>
+        </br>
+        <form action="/zamowienie_produkt" class="float-left" method="GET">
+            <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+        </form>
+    <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

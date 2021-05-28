@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Spis produktów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania produktu</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/produkt" method="POST">
+
+                <label for="nazwa">Nazwa produktu</label>
+                <input type="text" class="form-control w-50" id="nazwa" name="nazwa" aria-describedby="nazwaHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="cena">Cena produktu</label>
+                <input type="text" class="form-control w-50" id="cena" name="cena" aria-describedby="cenaHelp" placeholder="Wprowadź cenę" required>
+
+                <label for="producentId">Id producenta</label>
+                <input type="text" class="form-control w-50" id="producentId" name="producentId" aria-describedby="producentHelp" placeholder="Wprowadź id producenta" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj produkt</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <form id="updateForm">
+
+                <label for="Id">Id produktu</label>
+                <input type="text" class="form-control w-50" id="Id" name="Id"  readonly>
+
+                <label for="nazwa">Nazwa produktu</label>
+                <input type="text" class="form-control w-50" id="nazwa" name="nazwa" aria-describedby="nazwaHelp" placeholder="Wprowadź nazwę" required>
+            
+                <label for="cena">Cena produktu</label>
+                <input type="text" class="form-control w-50" id="cena" name="cena" aria-describedby="cenaHelp" placeholder="Wprowadź cenę" required>
+
+                <label for="producentId">Id Producenta</label>
+                <input type="text" class="form-control w-50" id="producentId" name="producentId"  required>
+                
+
+                <input type="button" class="btn btn-secondary float-right" value="Zaktualizuj produkt" onclick="updateRow('produkt', this.form)">
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(produkt) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_produkt</th>
+                            <th>Nazwa</th>
+                            <th>Cena</th>
+                            <th>id_producent</th>
+                            <th>Usuń produkt</th>
+                            <th>Zaktualizuj produkt</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < produkt.length; i++) {%>
+                        <tr>
+                            <td><%= produkt[i].id_produkt %></td>
+                            <td><%= produkt[i].nazwa_produkt %></td>
+                            <td><%= produkt[i].cena_produkt %></td>
+                            <td><%= produkt[i].id_producent %></td>
+                            <td>
+                                <button type="button" class="btn btn-warning" onclick="deleteRow('produkt', '<%= produkt[i].id_produkt %>');">Usuń</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" onclick="updateForm('<%= produkt[i].id_produkt %>')">Edytuj</button>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/produkt" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

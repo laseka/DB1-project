@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <div class="text-center mb-5">
+            <h3>Ranking kategorii według średniej ceny produktów, które do niej należą</h3>
+            <p class="text-center text-muted">
+                Dotyczy kategorii, do których należą co najmniej dwa produkty</br>
+                Ranking jest ułożony od kategorii z najwyższą średnią ceną 
+                produktów do kategorii z najniższą średnią ceną produktów
+            </p>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Miejsce w rankingu</th>
+                    <th>Nazwa kategorii</th>
+                    <th>Opis kategorii</th>
+                    <th>Średnia cena produktów w kategorii</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < ranking.length; i++) {%>
+                <tr>
+                    <td><%= ranking[i].ranking %></td>
+                    <td><%= ranking[i].nazwa_kategoria %></td>
+                    <td><%= ranking[i].opis_kategoria %></td>
+                    <td><%= ranking[i].cena %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

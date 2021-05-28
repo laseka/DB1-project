@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Lista wykonanych zamówień</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania zamówienia</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/zamowienie" method="POST">
+
+                <label for="klientId">Wprowadź ID klienta wykonującego zamówienie</label>
+                <input type="text" class="form-control w-50" id="klientId" name="klientId" aria-describedby="klientIdHelp" placeholder="Wprowadź ID klienta" required>
+            
+                <label for="kurierId">Wprowadź ID kuriera odpowiedzialnego za zamówienie</label>
+                <input type="text" class="form-control w-50" id="kurierId" name="kurierId" aria-describedby="kurierIdHelp" placeholder="Wprowadź ID kuriera" required>
+
+                <label for="koszt">Wprowadź łączny koszt zamówienia</label>
+                <input type="text" class="form-control w-50" id="koszt" name="koszt" aria-describedby="kosztHelp" placeholder="Łączny koszt zamówienia" required>
+
+                <label for="zlozenia">Wprowadź datę złożenia zamówienia</label>
+                <input type="date" class="form-control w-50" id="zlozenia" name="zlozenia" aria-describedby="zlozeniaHelp" placeholder="Data złożenia zamówienia" required>
+
+                <label for="dostarczenia">Wprowadź datę planowanego dostarczenia zamówienia</label>
+                <input type="date" class="form-control w-50" id="dostarczenia" name="dostarczenia" aria-describedby="dostarczeniaHelp" placeholder="Data dostarczenia zamówienia" required>
+
+                <label for="adres">Wprowadź adres, na który ma być dostarczone zamówienie</label>
+                <input type="text" class="form-control w-50" id="adres" name="adres" aria-describedby="adresHelp" placeholder="Adres zamówienia" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj zamówienie</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(zamowienie) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_zamowienia</th>
+                            <th>id_klient</th>
+                            <th>id_kurier</th>
+                            <th>Łączny koszt zamówienia</th>
+                            <th>Data złożenia zamówienia</th>
+                            <th>Przewidywana data dostarczenia zamówienia</th>
+                            <th>Adres</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < zamowienie.length; i++) {%>
+                        <tr>
+                            <td><%= zamowienie[i].id_zamowienie %></td>
+                            <td><%= zamowienie[i].id_klient %></td>
+                            <td><%= zamowienie[i].id_kurier %></td>
+                            <td><%= zamowienie[i].koszt_zamowienia %></td>
+                            <td><%= zamowienie[i].data_zlozenia_zamowienia %></td>
+                            <td><%= zamowienie[i].data_dostarczenia %></td>
+                            <td><%= zamowienie[i].adres %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+            <%} else {%>
+            </br>
+            <form action="/zamowienie" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

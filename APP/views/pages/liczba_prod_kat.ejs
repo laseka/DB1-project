@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <div class="text-center mb-5">
+            <h3>Liczba produktów w każdej kategorii</h3>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Liczba produktów</th>
+                    <th>Nazwa kategorii</th>
+                    <th>Opis kategorii</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < view.length; i++) {%>
+                <tr>
+                    <td><%= view[i].produkty %></td>
+                    <td><%= view[i].nazwa_kategoria %></td>
+                    <td><%= view[i].opis_kategoria %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Lista dostępnych kurierów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania opinii</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/kurier" method="POST">
+
+                <label for="nazwa">Nazwa firmy kurierskiej</label>
+                <input type="text" class="form-control w-50" id="nazwa" name="nazwa" aria-describedby="nazwaHelp" placeholder="Wprowadź nazwę firmy kurierskiej" required>
+            
+                <label for="koszt">Koszt dostawy</label>
+                <input type="text" class="form-control w-50" id="koszt" name="koszt" aria-describedby="kosztHelp" placeholder="Wprowadź koszt zrealizowania dostawy" required>
+
+                <label for="czas">Wprowadź czas potrzebny do dostarczenia przesyłki (w dniach)</label>
+                <input type="text" class="form-control w-50" id="czas" name="czas" aria-describedby="czasHelp" placeholder="Liczba dni potrzebnych na dostarczenie przesyłki" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj kuriera</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(kurier) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_kurier</th>
+                            <th>Nazwa firmy kurierskiej</th>
+                            <th>Koszt dostawy</th>
+                            <th>Przewidywany czas dostawy (w dniach)</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < kurier.length; i++) {%>
+                        <tr>
+                            <td><%= kurier[i].id_kurier %></td>
+                            <td><%= kurier[i].nazwa_firmy %></td>
+                            <td><%= kurier[i].koszt_dostawy %></td>
+                            <td><%= kurier[i].czas_dostawy %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+            <%} else {%>
+            </br>
+            <form action="/kurier" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <div class="text-center mb-5">
+            <h3>Szczegóły dotyczące zamówień, których łączny koszt wyniósł więcej niż 1000.00 zł</h3>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID zamówienia</th>
+                    <th>Liczba zamówionych produktów</th>
+                    <th>Nazwa zamówionego produktu</th>
+                    <th>Email klienta</th>
+                    <th>Łączny koszt zamówienia</th>
+                    <th>Data złożenia zamówienia</th>
+                    <th>Data dostarczenia zamówienia</th>
+                    <th>Nazwa firmy kurierskiej dowożącej zamówienie</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < info.length; i++) {%>
+                <tr>
+                    <td><%= info[i].id_zamowienie %></td>
+                    <td><%= info[i].liczba_produktow %></td>
+                    <td><%= info[i].nazwa_produkt %></td>
+                    <td><%= info[i].email_klient %></td>
+                    <td><%= info[i].koszt_zamowienia %></td>
+                    <td><%= info[i].data_zlozenia_zamowienia %></td>
+                    <td><%= info[i].data_dostarczenia %></td>
+                    <td><%= info[i].nazwa_firmy %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

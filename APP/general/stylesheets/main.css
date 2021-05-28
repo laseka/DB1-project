@@ -1,0 +1,27 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+
+@media (min-width: 1200px) {
+    #twoColumn{
+        max-width: 1500px;
+    }
+}
+
+h3, h4 {
+    font-weight: 800;
+}
+
+button {
+    display: none;
+}
+
+td:hover {
+    display: block;
+}
+
+#addForm, #updateForm {
+    display: none;
+}
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Opinie na temat produktów</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania opinii</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/opinie" method="POST">
+
+                <label for="produktId">Id ocenianego produktu</label>
+                <input type="text" class="form-control w-50" id="produktId" name="produktId" aria-describedby="produktIdHelp" placeholder="Wprowadź id ocenianego produktu" required>
+            
+                <label for="klientId">Id recenzującego klienta</label>
+                <input type="text" class="form-control w-50" id="klientId" name="klientId" aria-describedby="klientIdHelp" placeholder="Wprowadź swoje id klienta" required>
+
+                <label for="data">Wprowadź datę wydania opinii</label>
+                <input type="date" class="form-control w-50" id="data" name="data" aria-describedby="producentHelp" placeholder="Wprowadź datę opinii" required>
+
+                <label for="ocena">Wprowadź ocenę produktu w skali 1-5</label>
+                <input type="text" class="form-control w-50" id="ocena" name="ocena" aria-describedby="ocenaHelp" placeholder="Ocena produktu w skali 1-5" required>
+
+                <label for="tresc">Wprowadź treść opinii</label>
+                <input type="text" class="form-control w-50" id="tresc" name="tresc" aria-describedby="trescHelp" placeholder="Twoja opinia" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj opinię</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(opinie) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_produkt</th>
+                            <th>id_klient</th>
+                            <th>Data dodania opinii</th>
+                            <th>Wystawiona ocena (w skali 1-5)</th>
+                            <th>Treść opinii</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < opinie.length; i++) {%>
+                        <tr>
+                            <td><%= opinie[i].id_produkt %></td>
+                            <td><%= opinie[i].id_klient %></td>
+                            <td><%= opinie[i].data %></td>
+                            <td><%= opinie[i].ocena %></td>
+                            <td><%= opinie[i].opinia_tresc %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/opinie" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

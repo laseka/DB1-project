@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <% if (result) { %>
+            <div id="info">
+                <%= result %>
+            </div>
+            <%} else {%>
+                <% } %>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID produktu</th>
+                    <th>Nazwa produktu</th>
+                    <th>Cena produktu</th>
+                    <th>Producent</th>
+                </tr>
+            </thead>
+            <% for (var i = 0; i < produkty.length; i++) {%>
+                <tr>
+                    <td><%= produkty[i].id_produkt %></td>
+                    <td><%= produkty[i].nazwa_produkt %></td>
+                    <td><%= produkty[i].cena_produkt %></td>
+                    <td><%= produkty[i].nazwa_producent %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

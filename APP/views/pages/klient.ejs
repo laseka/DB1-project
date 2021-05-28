@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Klienci</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Wyświetl formę dodania klienta</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/klient" method="POST">
+
+                <label for="email">Email klienta</label>
+                <input type="text" class="form-control w-50" id="email" name="email" aria-describedby="emailHelp" placeholder="Wprowadź email" required>
+            
+                <label for="haslo">Hasło</label>
+                <input type="text" class="form-control w-50" id="haslo" name="haslo" aria-describedby="hasloHelp" placeholder="Wprowadź hasło" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj klienta</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(klient) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_klient</th>
+                            <th>Email</th>
+                            <th>Hasło</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < klient.length; i++) {%>
+                        <tr>
+                            <td><%= klient[i].id_klient %></td>
+                            <td><%= klient[i].email_klient %></td>
+                            <td>
+                                <% for (var j = 0; j < klient[i].haslo.length; j++) { %>
+                                *
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        <%} else {%>
+            </br>
+            <form action="/klient" class="float-left" method="GET">
+                <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+            </form>
+        <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main class="container">
+
+    <div class="jumbotron bg-light border border-secondary">
+        <h3 class="text-center mb-5">Tabela asocjacyjna, która odpowiada przyporządkowaniu produktów do odpowiednich kategorii</h3>
+        
+        <button type="button" class="btn btn-secondary float-right mb-5" onclick="showForm()">Dodaj produkty do kategorii</button>
+        
+        <div id="addForm" class="mt-5">
+            <form action="/kategoria_produkt" method="POST">
+
+                <label for="produktId">ID produktu</label>
+                <input type="text" class="form-control w-50" id="produktId" name="produktId" aria-describedby="produktIdHelp" placeholder="Wprowadź ID produktu" required>
+            
+                <label for="kategoriaId">ID kategorii</label>
+                <input type="text" class="form-control w-50" id="kategoriaId" name="kategoriaId" aria-describedby="kategoriaIdHelp" placeholder="Wprowadź ID kategorii" required>
+
+                <button type="submit" class="btn btn-secondary float-right">Dodaj przyporządkowanie</button>
+            </form>
+        </div>
+
+
+        <div id="result">
+            <% if (result) { %>
+                    <%= result %>
+            <%} else {%>
+                <% } %>
+        </div>
+
+        <% if(kategoria_produkt) { %>
+            <div id="resultTable">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id_produkt</th>
+                            <th>id_kategoria</th>
+                        </tr>
+                    </thead>
+                    <% for (var i = 0; i < kategoria_produkt.length; i++) {%>
+                        <tr>
+                            <td><%= kategoria_produkt[i].id_produkt %></td>
+                            <td><%= kategoria_produkt[i].id_kategoria %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+        <%} else {%>
+        </br>
+        <form action="/kategoria_produkt" class="float-left" method="GET">
+            <button type="submit" class="btn btn-secondary">Załaduj tabelę</button>
+        </form>
+    <% } %>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
